@@ -1,0 +1,99 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400&subset=latin,latin-ext);
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-image: url(https://cdn.discordapp.com/attachments/579707526610681857/884187975347474442/unknown.png);
+    background-size: 100%;
+    font-family: "roboto condensed";
+}
+
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* For landing */
+.route-wrapper {
+    margin-top: 2%;
+}
+
+.route-wrapper .route, .route:visited {
+    color: #66FCF1;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 5%;
+    padding-top: 15px;
+    transition: 0.35s;
+}
+
+.route-wrapper .route:hover {
+    color: white;
+}
+
+.title {
+    color: #45A29E;
+    font-size: 105px;
+    text-align: center;
+    margin-top: 20vh;
+    margin-bottom: 4vh;
+    font-weight: bold;
+}
+
+.desc {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 23px;
+    margin-top: 3%;
+    margin: auto;
+    width: 50%;
+}
+
+.bt-wrapper {
+    text-align: center;
+    align-items: center;
+}
+
+.bt-wrapper .enter {
+    border-style: none;
+    outline: 0;
+    background-color: rgb(256, 256, 256, 0);
+    border: 1px solid #66FCF1;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    padding: 0.5% 5%;
+    text-align: center;
+    transition: 0.25s;
+    margin-top: 4%;
+    border-radius: 5px;
+}
+
+.bt-wrapper .enter:hover {
+    background-color: #45A29E;
+    cursor: pointer;
+}
+/* End Landing */
+
+/* For About */
+
+.about-center {
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.about-center #about-title {
+    color: #45A29E;
+    font-size: 90px;
+    font-weight: bold;
+}
+
+.about-center #about-desc {
+    color: white;
+    font-size: 20px;
+}
