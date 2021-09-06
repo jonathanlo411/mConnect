@@ -6,7 +6,7 @@ from django.db.models.fields import CharField
 class userprofile(models.Model):
     username = models.CharField(max_length=30)
     password = models.CharField(max_length=50)
-    display_name = models.CharField(max_length=30)
+    email = models.EmailField(default="email@email.com")
     bio = models.CharField(max_length=200)
     pfp = models.ImageField()
 

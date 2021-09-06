@@ -4,7 +4,7 @@ from django.urls import path
 #pages
 from landing.views import landing, about
 from animelist.views import animelist
-from login.views import login
+from login.views import login_vw
 from signup.views import signup
 
 urlpatterns = [
@@ -12,6 +12,6 @@ urlpatterns = [
     path('', landing, name="landing"),
     path('about', about, name="about"),
     path('animelist/', animelist, name='animelist'),
-    path('login/', login, name="login"),
+    path('login/', login_vw, name="login"),
     path('signup/', signup, name="signup")
 ]

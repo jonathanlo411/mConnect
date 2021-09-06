@@ -9,6 +9,7 @@
     <div class="login-block">
         <h1 class="title">mConnect</h1>
         <h4 class="desc">Login to your account!</h4>
+        <h4 class="error">Invalid Credentials!</h4>
         <form class="inputs" method="POST" action="/login/">
             {% csrf_token %}
             {{ login }}

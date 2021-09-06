@@ -9,6 +9,7 @@
     <div class="signup-block">
         <h1 class="title">mConnect</h1>
         <h4 class="desc">Create an account!</h4>
+        <h4 class="error">{{ error }}</h4>
         <form class="inputs" method="POST" action="/signup/">
             {% csrf_token %}
             {{ ucreation }}
