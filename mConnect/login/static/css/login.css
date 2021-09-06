@@ -1,0 +1,92 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400&subset=latin,latin-ext);
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background-image: url(https://cdn.discordapp.com/attachments/579707526610681857/884187975347474442/unknown.png);
+    background-size: 100%;
+    font-family: "roboto condensed";
+}
+
+.login-block {
+    margin: auto;
+    margin-top: 20vh;
+    background-color: #1F2833;
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 30vw;
+    padding-bottom: 3vh;
+}
+
+/* Inside login-block (.login-block) */
+.title {
+    color: #66FCF1;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 5%;
+}
+
+.desc {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.inputs {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.inputs .lg-field {
+    border: 0;
+    outline: 0;
+    background-color: #c5c6c7;
+    padding: 3% 6%;
+    border-radius: 3px;
+    color: black;
+    font-size: 16px;
+    display: block;
+    margin: 6% auto;
+    width: 100%;
+    transition: 0.15s;
+}
+
+.inputs .lg-field:focus {
+    background-color: white;
+}
+
+.inputs .lg-bt {
+    display: block;
+    border: 0;
+    outline: 0;
+    background-color: #45A29E;
+    color: white;
+    font-size: 16px;
+    border-radius: 3px;
+    padding: 3% 6%;
+    transition: 0.35s;
+    width: 100%;
+    margin: 6% auto;
+}
+
+.inputs .lg-bt:hover {
+    background-color: #66FCF1;
+    cursor: pointer;
+}
+
+.inputs .cAccount, .cAccount:visited {
+    color: #45A29E;
+    font-size: 16px;
+    transition: 0.35s;
+    text-decoration: none;
+}
+
+.inputs .cAccount:hover {
+    color: white;
+}
