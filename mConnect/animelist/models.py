@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields.files import ImageField
 
 # Create your models here.
 
@@ -15,4 +14,7 @@ class AnimeEntry(models.Model):
     rewatched = models.IntegerField() #number of times user rewatched anime
     comments = models.CharField(max_length=300) #comments left by user
     prio = models.IntegerField() #int from 0-2
+
+    def __str__(self):
+        return self.title
 

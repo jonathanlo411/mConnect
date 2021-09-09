@@ -8,16 +8,16 @@ body {
     background-color: #1C2D43;
     font-family: "roboto condensed";
 }
-
-/* Error */
-#no-mal {
-    color: white;
-    font-weight: bold;
-    width: 80%;
-    text-align: center;
-    margin: 10% auto;
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400&subset=latin,latin-ext);
+* {
+    box-sizing: border-box;
+    margin: 0;
 }
-/* End Error */
+
+body {
+    background-color: #1C2D43;
+    font-family: "roboto condensed";
+}
 
 /* News */
 #news-section {
@@ -134,7 +134,7 @@ body {
 
 /* Anime */
 
-#anime-nav {
+#n-nav {
     left: 38.25%;
     width: 58.5%;
     height: 7vh;
@@ -151,23 +151,23 @@ body {
 /* End Anime */
 
 /* Feed */
-#anime-section {
+#n-section {
     margin-left: 35%;
     width: 65%;
     height: 100vh;
     overflow: auto;
 }
 
-#anime-section .anime-feed {
+#n-section .n-feed {
     height: 100vh;
 }
 
-#anime-section .spacer {
+#n-section .spacer {
     height: 10vh;
     color: #1C2D43;
 }
 
-.anime-card {
+.n-card {
     background-color: #1F2833;
     border: 1px solid white;
     border-radius: 12px;
@@ -178,24 +178,19 @@ body {
     margin-bottom: 2%;
 }
 
-.a-wrap {
-    float: right;
-    width: 88%;
-}
-
-.anime-card .anime-card-image-wrapper {
+.n-card .n-card-image-wrapper {
     width: 12%;
     max-width: 12%;
     min-width: 12%;
     float: left;
 }
 
-.anime-card .anime-card-image-wrapper .anime-img-overflow {
+.n-card .n-card-image-wrapper .n-img-overflow {
     width: 100%;
     height: auto;
 }
 
-.anime-card .anime-card-image-wrapper .anime-img-overflow img {
+.n-card .n-card-image-wrapper .n-img-overflow img {
     max-width: 100%;
     min-width: 100%;
     height: auto;
@@ -203,14 +198,14 @@ body {
     margin: auto;
 }
 
-.anime-card .anime-info {
+.n-card .n-info {
     width: 80%;
     float: left;
     padding: 0 1%;
     color: white;
 }
 
-.anime-card .anime-info .anime-title {
+.n-card .n-info .n-title {
     font-size: 26px;
     color: #66FCF1;
     overflow: hidden;
@@ -218,7 +213,7 @@ body {
     text-overflow: ellipsis;
 }
 
-.anime-card .anime-info img {
+.n-card .n-info img {
     width: 1.5rem;
     height: auto;
     float: left;
@@ -228,7 +223,7 @@ body {
     display: inline-block;
 }
 
-.anime-card .anime-info .anime-stats {
+.n-card .n-info .n-stats {
     font-size: 20px;
     display: inline;
     overflow: hidden;
@@ -238,82 +233,14 @@ body {
     float: right;
 }
 
-.anime-card .anime-info .anime-stats::first-letter {
+.n-card .n-info .n-stats::first-letter {
     color: #1C2D43;
 }
 
-.anime-card .anime-info .anime-synp {
+.n-card .n-info .n-synp {
     font-size: 13px;
     color: #C5C6C7;
     height: 11vh;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.anime-card .anime-reaction {
-    width: 20%;
-    float: right;
-}
-
-.rec-spacer {
-    height: 50%;
-    color: #1F2833;
-}
-
-.anime-card .anime-reaction .anime-episode {
-    display: inline;
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 2% 6%;
-    font-size: 16px;
-    margin: 2% auto;
-}
-
-.anime-card .anime-reaction .anime-episode input {
-    width: 20%;
-    height: 80%;
-    outline: 0;
-    border: 0;
-}
-
-.anime-card .anime-reaction .anime-episode:hover {
-    cursor: pointer;
-}
-
-.anime-card .anime-reaction .anime-episode input:focus {
-    border: 1px solid black;
-}
-
-.anime-card .anime-reaction .anime-rating {
-    width: 96%;
-    margin: 10% auto 5%;
-    padding: 2% 6%;
-    border: 1px solid black;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.anime-card .anime-reaction .anime-rating:hover {
-    cursor: pointer;
-}
-
-.anime-card .anime-reaction .anime-rating:focus {
-    outline: 0;
-}
-
-.anime-card .anime-reaction .anime-more {
-    border: 0;
-    outline: 0;
-    width: 96%;
-    margin: 2% auto;
-    padding: 2% 6%;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: white;
-    font-size: 16px;
-}
-
-.anime-card .anime-reaction .anime-more:hover {
-    cursor: pointer;
 }
