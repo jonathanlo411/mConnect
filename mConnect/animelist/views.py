@@ -16,10 +16,16 @@ def animelist(request):
         token = generate_new_token(auth_code, user.refresh_token)
         user.access_token = token['access_token']
         user.refresh_token = token['refresh_token']
-        user.has_mal = True
         user.save()
         populate_animelist(user.access_token, user)
-        return render(request, 'animelist/animelist.html', {"user":user})
+        user.has_mal = True
+        user.save()
+        anime_list = user.animeentry_set.all()
+        context = {
+            'user': user,
+            'animelist': anime_list
+        }
+        return render(request, 'animelist/animelist.html', context)
     if not user.has_mal:
         code_challenge = get_new_code_verifier()
         url = return_new_authorisation_url(code_challenge)
@@ -29,7 +35,13 @@ def animelist(request):
             "connect_mal_url": url
         }
         return render(request, 'animelist/animelist_empty.html', context)
-    return render(request, 'animelist/animelist.html', {"user":user})
+    populate_animelist(user.access_token, user)
+    anime_list = user.animeentry_set.all()
+    context = {
+        'user': user,
+        'animelist': anime_list
+    }
+    return render(request, 'animelist/animelist.html', context)
 
 
 # Helper Functions to generate auth token (from ZeroCrystal)
@@ -75,7 +87,7 @@ def get_animelist(access_token: str):
     """
     Returns the animelist of a user with a limit of 4
     """
-    url = f'https://api.myanimelist.net/v2/users/@me/animelist?fields=list_status&limit=4'
+    url = f'https://api.myanimelist.net/v2/users/@me/animelist?fields=list_status&limit=100'
     response = requests.get(url, headers= {
         'Authorization': f'Bearer {access_token}'
     })
@@ -84,11 +96,11 @@ def get_animelist(access_token: str):
     response.close()
     return anime_list
 
-def get_animeinfo(access_token: str, anime_id: int):
+def get_animeinfo(access_token: str, anime_id: int) -> dict:
     """
     Returns a dictionary of the anime information
     """
-    url = f'https://api.myanimelist.net/v2/anime/{anime_id}?fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,recommendations,studios,statistics'
+    url = f'https://api.myanimelist.net/v2/anime/{anime_id}?fields=id,title,main_picture,alternative_titles,synopsis,mean,rank,popularity,num_list_users,media_type,status,genres,my_list_status,num_episodes,start_season,source,studios'
     response = requests.get(url, headers= {
         'Authorization': f'Bearer {access_token}'
     })
@@ -101,24 +113,104 @@ def populate_animelist(access_token: str, user: userprofile):
     """
     Populates a user's animelist using their MAL information
     """
+    user.animeentry_set.all().delete()
     animelist = get_animelist(access_token)['data']
     for i in animelist:
-        info = i['node']
-        status_M = i['list_status']
+        # Query for anime ID and obtaining anime info
+        # ------------------------------------------
+        mal_id = i['node']['id']
+        anime_info = get_animeinfo(access_token, mal_id)
         # Defining Intial Params
-        mal_id = info['id']
-        title = info['title']
-        eps = status_M['num_watched_episdoes']
-        status = status_M['status']
-        score = status_M['score']
-        rating = ...
-        picture = info['main_picture']['large']
-        rewatching = status_M['is_rewatching']
-        rewatched = ...
-        comments = ...
-        prio = ...
-        # Intialization of Anime Entry
-        anime_entry = AnimeEntry(mal_id = mal_id, title = title, eps = eps, status = status, score = score, rating = rating, picture = picture, rewatching = rewatching, rewatched = rewatched, comments = comments, prio = prio)
+        # ----------------------
+        #title
+        title = anime_info['title']
+        #status
+        status = anime_info['my_list_status']['status']
+        #teps
+        t_eps = anime_info['num_episodes']
+        #eps
+        eps = 0
+        if 'num_watched_episodes' in anime_info['my_list_status']:
+            eps = anime_info['my_list_status']['num_watched_episodes']
+        if status == 'completed':
+            eps = t_eps
+        score = anime_info['my_list_status']['score']
+        #mean
+        mean = 0
+        if 'mean' in anime_info:
+            mean = anime_info['mean']
+        #picture
+        picture = anime_info['main_picture']['medium']
+        if 'large' in anime_info['main_picture']:
+            picture = anime_info['main_picture']['large']
+        #rewatching
+        rewatching = anime_info['my_list_status']['is_rewatching']
+        #desc
+        desc = anime_info['synopsis']
+        #rewatched
+        rewatched = 0
+        if 'num_times_rewatched' in anime_info['my_list_status']:
+            rewatched = anime_info['my_list_status']['num_times_rewatched']
+        #comments
+        comments = ""
+        if 'comments' in anime_info['my_list_status']:
+            comments = anime_info['my_list_status']['comments']
+        #prio
+        prio = 0
+        if 'priority' in anime_info['my_list_status']:
+            prio = anime_info['my_list_status']['priority']
+        #studio
+        studio = ""
+        if len(anime_info['studios']) > 0:
+            studio = anime_info['studios'][0]['name']
+        #airing_time
+        airing_time = (anime_info['start_season']['season']).capitalize() + " " + str(anime_info['start_season']['year'])
+        #anime status
+        anime_status = anime_info['status']
+        #source
+        source = anime_info['source']
+        #genres
+        genres = anime_info['genres'][0]['name']
+        #ranked
+        ranked = 0
+        if 'rank' in anime_info:
+            ranked = anime_info['rank']
+        #popularity
+        popularity = anime_info['popularity']
+        #members
+        members = anime_info['num_list_users']
+        #link
+        link = f'https://myanimelist.net/anime/{mal_id}/{title}'
+        #alt tile
+        alt_title = ""
+        if 'jp' in anime_info['alternative_titles']:
+            alt_title = anime_info['alternative_titles']['jp']
+        # Intialization of Anime Entry and Adding to User's Animelist
+        # ----------------------------------------------------------
+        anime_entry = AnimeEntry(mal_id = mal_id,
+            title = title,
+            eps = eps,
+            status = status,
+            score = score,
+            mean = mean,
+            picture = picture,
+            rewatching = rewatching,
+            rewatched = rewatched,
+            comments = comments,
+            prio = prio,
+            studio = studio,
+            airing_time = airing_time,
+            anime_status = anime_status,
+            source = source,
+            genres = genres,
+            ranked = ranked,
+            popularity = popularity,
+            members = members,
+            link = link,
+            alt_title = alt_title,
+            t_eps = t_eps,
+            userp = user,
+            desc = desc
+        )
         anime_entry.save()
-        # Adding to user animelist
 

@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href=./../../static/css/animelist.css>
-    <title>{{ name }}'s Anime List</title>
+    <title>{{ user.username }}'s Anime List</title>
 </head>
 <body>
     <section id="news-section">
@@ -96,39 +96,52 @@
     <section id="anime-section">
         <div class="anime-feed">
             <div class="spacer">-</div>
+            {% for anime in animelist %}
 
-            <!-- Static Anime Card -->
             <div class="anime-card">
                 <div class="anime-card-image-wrapper">
                     <div class="anime-img-overflow">
-                        <img src="https://cdn.myanimelist.net/images/anime/1255/110636.jpg">
+                        <img src="{{ anime.picture }}">
                     </div>
                 </div>
                 <div class="a-wrap">
                     <div class="anime-info">
-                        <h2 class="anime-title">Yuru Camp Season 2</h2>
+                        <h2 class="anime-title">{{ anime.title }}</h2>
                         <div class="stat-line">
                             <img src="https://pbs.twimg.com/profile_images/1190380284295950339/Py6XnxvH_400x400.jpg">
-                            <div class="anime-stats">-8.54 | Winter 2021 | C-Station</div>
+                            <div class="anime-stats">-
+                                {% if anime.mean == 0 %}
+                                    - | {{ anime.airing_time }} | {{ anime.studio }} 
+                                {% else %}
+                                    {{ anime.mean }} | {{ anime.airing_time }} | {{ anime.studio }} 
+                                {% endif %}
+                            </div>
                         </div>
                         <p class="anime-synp">
-                            Having spent Christmas camping with her new friends, Rin Shima embarks on a solo-camping trip to see the New Year sunrise by the sea. All goes according to plan until unforeseen weather blocks the roads back home, making a return trip impossible. Rin, who is now stranded for a few days, is invited by Nadeshiko Kagamihara to stay at her grandmother's house.
+                            {{ anime.desc }}
                         </p>
                     </div>
                     <div class="anime-reaction">
                         <div class="rec-spacer">-</div>
                         <div class="anime-episode">
-                            <input>/ 13 Episodes
+                            <input placeholder="{{ anime.eps }}">/ {{ anime.t_eps }} Episodes
                         </div>
                         <select class="anime-rating">
-                            <option value="">Rating (star)</option>
+                            <option value="">
+                                {% if anime.score == 0 %}
+                                    -
+                                {% else %}
+                                    {{ anime.score }}
+                                {% endif %}
+                            </option>
                             <option value="">10</option>
                         </select>
                         <button class="anime-more">Edit More</button>
                     </div>
                 </div>
-            </div>            
+            </div>     
             
+            {% endfor %}
         </div>
     </section>
 </body>
