@@ -32,10 +32,10 @@ def animelist(request):
         user.refresh_token = code_challenge
         user.save()
         context = {
+            "user": user,
             "connect_mal_url": url
         }
         return render(request, 'animelist/animelist_empty.html', context)
-    populate_animelist(user.access_token, user)
     anime_list = user.animeentry_set.all()
     context = {
         'user': user,
@@ -87,7 +87,7 @@ def get_animelist(access_token: str):
     """
     Returns the animelist of a user with a limit of 4
     """
-    url = f'https://api.myanimelist.net/v2/users/@me/animelist?fields=list_status&limit=100'
+    url = f'https://api.myanimelist.net/v2/users/@me/animelist?fields=list_status&limit=200'
     response = requests.get(url, headers= {
         'Authorization': f'Bearer {access_token}'
     })
@@ -140,9 +140,11 @@ def populate_animelist(access_token: str, user: userprofile):
         if 'mean' in anime_info:
             mean = anime_info['mean']
         #picture
-        picture = anime_info['main_picture']['medium']
-        if 'large' in anime_info['main_picture']:
-            picture = anime_info['main_picture']['large']
+        picture = ""
+        if 'main_picture' in anime_info:
+            picture = anime_info['main_picture']['medium']
+            if 'large' in anime_info['main_picture']:
+                picture = anime_info['main_picture']['large']
         #rewatching
         rewatching = anime_info['my_list_status']['is_rewatching']
         #desc
@@ -160,11 +162,13 @@ def populate_animelist(access_token: str, user: userprofile):
         if 'priority' in anime_info['my_list_status']:
             prio = anime_info['my_list_status']['priority']
         #studio
-        studio = ""
+        studio = "Unknown"
         if len(anime_info['studios']) > 0:
             studio = anime_info['studios'][0]['name']
         #airing_time
-        airing_time = (anime_info['start_season']['season']).capitalize() + " " + str(anime_info['start_season']['year'])
+        airing_time = "Unknown"
+        if 'start_season' in anime_info:
+            airing_time = (anime_info['start_season']['season']).capitalize() + " " + str(anime_info['start_season']['year'])
         #anime status
         anime_status = anime_info['status']
         #source

@@ -3,9 +3,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href=./../../static/css/animelist.css>
-    <title>{{ name }}'s Anime List</title>
+    <title>{{ user.username }}'s Anime List</title>
 </head>
 <body>
+    
     <section id="news-section">
         <div class="news-block">
             <h2 class="news-block-title">Recent Anime News (ANN)</h2>
@@ -99,11 +100,15 @@
           
             <h1 id="no-mal">Looks like you haven't connected your MyAnimeList account yet. Would you like to do so now?</h1>
 
-            <a id="connect-mal" href="{{ connect_mal_url }}">
+            <div id='wrap-bt'>
+            <button id="connect-mal" onclick="location.href = '{{ connect_mal_url }}'">
                 <img src="https://pbs.twimg.com/profile_images/1190380284295950339/Py6XnxvH_400x400.jpg">
                 <h2 id="cn-mal-title">Connect MyAnimeList</h2>
-            </a>
+            </button>
+            </div>
             
         </div>
     </section>
+
+
 </body>

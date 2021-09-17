@@ -176,6 +176,12 @@ body {
     height: 25%;
     margin-left: 5%;
     margin-bottom: 2%;
+    transition: 0.3s;
+}
+
+.anime-card:hover {
+    cursor: pointer;
+    background-color: #263952;
 }
 
 .a-wrap {
@@ -322,3 +328,86 @@ body {
 .anime-card .anime-reaction .anime-more:hover {
     cursor: pointer;
 }
+
+/* Animelist Empty Styling */
+
+#wrap-bt {
+    text-align: center;
+}
+
+#connect-mal {
+    background-color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    border: 1px solid black;
+    transition: 0.3s;
+    padding: 1%;
+    width: 45%;
+    margin: auto;
+}
+
+#connect-mal:hover {
+    background-color: rgb(212, 212, 212);
+    cursor: pointer;
+}
+
+#connect-mal img {
+    width: 2rem;
+    height: auto;
+    float: left;
+    display: inline;
+}
+
+#connect-mal #cn-mal-title {
+    font-size: 26px;
+    text-decoration: none;
+    color: black;
+    display: inline;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    text-align: left;
+}
+
+#connect-mal #cn-al-title:active {
+    color: #C5C6C7;
+}
+
+/* End Animelist Error Styling */
+/* Anime Modal */
+
+.animeModal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4);
+}
+
+.animeModal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.animeModalClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.animeModalClose:hover, .animeModalClose:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* End Anime Modal */

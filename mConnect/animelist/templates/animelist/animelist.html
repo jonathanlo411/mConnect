@@ -98,7 +98,8 @@
             <div class="spacer">-</div>
             {% for anime in animelist %}
 
-            <div class="anime-card">
+            <!-- Anime Card -->
+            <div class="anime-card" data-modal="animeModal{{anime.id}}">
                 <div class="anime-card-image-wrapper">
                     <div class="anime-img-overflow">
                         <img src="{{ anime.picture }}">
@@ -139,9 +140,76 @@
                         <button class="anime-more">Edit More</button>
                     </div>
                 </div>
-            </div>     
+            </div>
+            
+            <!-- Anime Popup Modal -->
+            <div id="animeModal{{anime.id}}" class="animeModal" data-modal="animeModal{{anime.id}}">
+                <!-- Modal content -->
+                <div class="animeModal-content">
+                    <span class="animeModalClose" data-modal="animeModal{{anime.id}}">&times;</span>
+                    <div class="animeModalWrapper">
+                        <div class="pinfo">
+                            <div class="animeModalPic">
+                                <div class="animeModalPicOverflow">
+                                    <img src="{{ anime.picture }}">
+                                </div>
+                            </div>
+                            <div class="isl-sec">
+                                <h4 class="modal-info">Information</h4>
+                                    <p class="modal-status">Status: {{ anime.anime_status }}</p>
+                                    <p class="modal-type">Type: {{ anime.anime_status }}</p>
+                                    <p class="modal-source">Source: {{ anime.source }}</p>
+                                    <p class="modal-genres">Genres: {{ anime.genres }}</p>
+                                <h4 class="modal-stats">Statistics</h4>
+                                    <p class="modal-rank">Ranked: #{{ anime.ranked }}</p>
+                                    <p class="modal-popularity">Popularity: #{{ anime.popularity }}</p>
+                                    <p class="modal-member">Members: {{ anime.members }}</p>
+                                <h4 class="modal-links">Links</h4>
+                                    <a href="{{ anime.link }}" class="modal-link" target="_blank">MyAnimeList</a>
+                            </div>
+                        </div>
+                        <div class="tinfo">
+                            <div class="titles">
+                                <h1 class="main">{{ anime.title }}</h1>
+                                <h3 class="alt">{{ anime.alt_title }}</h3>
+                            </div>
+                            <div class="modal-scores">
+                                <img src="https://pbs.twimg.com/profile_images/1190380284295950339/Py6XnxvH_400x400.jpg">
+                                <div class="anime-stats">-
+                                    {% if anime.mean == 0 %}
+                                        - | {{ anime.airing_time }} | {{ anime.studio }} 
+                                    {% else %}
+                                        {{ anime.mean }} | {{ anime.airing_time }} | {{ anime.studio }} 
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="ustatus">
+                                <div class="anime-episode">
+                                    <input placeholder="{{ anime.eps }}">/ {{ anime.t_eps }} Episodes
+                                </div>
+                                <select class="anime-rating">
+                                    <option value="">
+                                        {% if anime.score == 0 %}
+                                            -
+                                        {% else %}
+                                            {{ anime.score }}
+                                        {% endif %}
+                                    </option>
+                                    <option value="">10</option>
+                                </select>
+                                <button class="anime-more">Edit More</button>
+                            </div>
+                            <div class="modal-desc">
+                                {{ anime.desc }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             {% endfor %}
         </div>
     </section>
+    <!-- Script for Modal -->
+    <script src="./../../static/js/modalscript.js"></script>
 </body>
