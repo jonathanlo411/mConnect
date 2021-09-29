@@ -134,9 +134,9 @@
                         <select class="anime-rating">
                             <option value="">
                                 {% if anime.score == 0 %}
-                                    -
+                                    Rating
                                 {% else %}
-                                    {{ anime.score }}
+                                    Rating - {{ anime.score }}
                                 {% endif %}
                             </option>
                             <option value="">10</option>
@@ -194,9 +194,9 @@
                                 <select class="anime-rating">
                                     <option value="">
                                         {% if anime.score == 0 %}
-                                            -
+                                            Rating
                                         {% else %}
-                                            {{ anime.score }}
+                                            Rating - {{ anime.score }}
                                         {% endif %}
                                     </option>
                                     <option value="">10</option>
@@ -218,7 +218,7 @@
             <div id="editMoreModal{{anime.id}}" class="editModal">
                 <!-- Modal content -->
                 <div class="editMore-content">
-                <div class="editWrap">
+                <form class="editWrap" method="POST" action="/animelist/">
                     <div class="editInfo">
                         <div class="editModalPic">
                             <div class="editModalPicOverflow">
@@ -229,23 +229,8 @@
                     </div>
                     <div class="update">
                         <div class="left">
-                            <select class="e-status">
-                                <option>{{ anime.status }}</option>
-                            </select>
-                            <select class="e-rating">
-                                <option value="">
-                                    {% if anime.score == 0 %}
-                                        -
-                                    {% else %}
-                                        {{ anime.score }}
-                                    {% endif %}
-                                </option>
-                            </select>
-                            <select class="e-prio">
-                                <option>
-                                    {{ anime.prio }}
-                                </option>
-                            </select>
+                            {% csrf_token %}
+                            {{ editmoresubleft }}
                         </div>
                         <div class="right">
                             <div class="e-episode">
@@ -259,14 +244,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cmt">
-                        <textarea class="comment"></textarea>
+                    <div class="cmt-out">
+                        <div class="cmt">
+                            <textarea class="comment"></textarea>
+                        </div>
                     </div>
                     <div class="sub">
-                        <button class="e-submit">Submit</button>
+                        <button class="e-submit" type="submit">Submit</button>
                         <button class="e-cancel" data-modal="editMoreModal{{anime.id}}">Cancel</button>
                     </div>
-                </div>
+                </form>
                 </div>
             </div>
             

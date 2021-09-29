@@ -1,16 +1,21 @@
 from django.shortcuts import render
-import requests
+from django.http import HttpResponseRedirect
 # For generation of a new auth token
 import json
+import requests
 import secrets
 #Bringing in Models
 from signup.models import userprofile
 from animelist.models import AnimeEntry
 from mangalist.models import MangaEntry
+from .forms import EditMoreSubLeft, EditMoreSubRight
 
 # Page Renders
 def animelist(request):
     user = userprofile.objects.get(username = request.user)
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponseRedirect('/animelist/')
     if (request.method == 'GET') and ('code' in request.GET):
         auth_code = request.GET['code']
         token = generate_new_token(auth_code, user.refresh_token)
@@ -23,7 +28,9 @@ def animelist(request):
         anime_list = user.animeentry_set.all()
         context = {
             'user': user,
-            'animelist': anime_list
+            'animelist': anime_list,
+            'editmoresubleft': EditMoreSubLeft,
+            'editmoresubright': EditMoreSubRight
         }
         return render(request, 'animelist/animelist.html', context)
     if not user.has_mal:
@@ -39,7 +46,9 @@ def animelist(request):
     anime_list = user.animeentry_set.all()
     context = {
         'user': user,
-        'animelist': anime_list
+        'animelist': anime_list,
+        'editmoresubleft': EditMoreSubLeft,
+        'editmoresubright': EditMoreSubRight
     }
     return render(request, 'animelist/animelist.html', context)
 
@@ -191,7 +200,8 @@ def populate_animelist(access_token: str, user: userprofile):
             alt_title = anime_info['alternative_titles']['jp']
         # Intialization of Anime Entry and Adding to User's Animelist
         # ----------------------------------------------------------
-        anime_entry = AnimeEntry(mal_id = mal_id,
+        anime_entry = AnimeEntry(
+            mal_id = mal_id,
             title = title,
             eps = eps,
             status = status,
@@ -218,3 +228,12 @@ def populate_animelist(access_token: str, user: userprofile):
         )
         anime_entry.save()
 
+def update_animelist(access_token: str, user: userprofile, anime_id: str, **kwargs):
+    url = f'https://api.myanimelist.net/v2/anime/{anime_id}/my_list_status'
+    response = requests.patch(url, data = {
+        "score": 0
+    }, headers= {
+        'Authorization': f'Bearer {access_token}'
+    })
+    response.raise_for_status()
+    print(response)
