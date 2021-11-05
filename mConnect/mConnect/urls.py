@@ -8,6 +8,7 @@ from mangalist.views import mangalist
 from login.views import login_vw
 from signup.views import signup
 from anews.views import anews
+from recommender.views import recommender
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,5 +18,6 @@ urlpatterns = [
     path('mangalist/', mangalist, name="mangalist"),
     path('login/', login_vw, name="login"),
     path('signup/', signup, name="signup"),
-    path('anews/', anews, name="anews")
+    path('anews/', anews, name="anews"),
+    path('recommender/', recommender, name="recommender")
 ]
