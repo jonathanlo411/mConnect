@@ -148,6 +148,17 @@ body {
     position: fixed;
 }
 
+#anime-nav .nav-title {
+    width: 30%;
+}
+
+#anime-nav .nav-icons {
+    text-align: right;
+    display: inline;
+    width: 70%;
+    float: right;
+}
+
 /* End Anime */
 
 /* Feed */

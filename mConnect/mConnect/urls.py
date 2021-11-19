@@ -9,6 +9,7 @@ from login.views import login_vw
 from signup.views import signup
 from anews.views import anews
 from recommender.views import recommender
+from profilepage.views import profilepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('login/', login_vw, name="login"),
     path('signup/', signup, name="signup"),
     path('anews/', anews, name="anews"),
-    path('recommender/', recommender, name="recommender")
+    path('recommender/', recommender, name="recommender"),
+    path('profilepage/', profilepage, name="profilepage")
 ]
