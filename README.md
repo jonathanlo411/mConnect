@@ -1,6 +1,5 @@
 # mConnect
-*No longer being maintained*
-*If looking for something similar, there are pluggins*
+*No longer being maintained. If looking for something similar, there are pluggins*
 ## Overview
 Due to the policy of only including anime and manga of Japanese origin, one could not keep track of their manhwa or manhua using MyAnimeList. mConnect strives to solve this issue by serving as a centralized with a few extra bells and whistles.
 
